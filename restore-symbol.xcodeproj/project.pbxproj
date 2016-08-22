@@ -118,7 +118,7 @@
 			children = (
 				8F92BBF41D6B72E1008EA4C4 /* Foundation.framework */,
 				8F92BBD01D6B70A3008EA4C4 /* class-dump.xcodeproj */,
-				8F92BBC81D6B7085008EA4C4 /* restore-symbol */,
+				8F92BBC81D6B7085008EA4C4 /* source */,
 				8F92BBC71D6B7085008EA4C4 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -131,7 +131,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8F92BBC81D6B7085008EA4C4 /* restore-symbol */ = {
+		8F92BBC81D6B7085008EA4C4 /* source */ = {
 			isa = PBXGroup;
 			children = (
 				8F92BC001D6B789F008EA4C4 /* ref-to-class-dump */,
@@ -145,7 +145,7 @@
 				8F92BBE71D6B7265008EA4C4 /* restore-symbol.m */,
 				8F92BBF31D6B72C6008EA4C4 /* restore-symbol.pch */,
 			);
-			path = "restore-symbol";
+			path = source;
 			sourceTree = "<group>";
 		};
 		8F92BBD11D6B70A3008EA4C4 /* Products */ = {
@@ -383,7 +383,7 @@
 		8F92BBCE1D6B7085008EA4C4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_PREFIX_HEADER = "restore-symbol/restore-symbol.pch";
+				GCC_PREFIX_HEADER = "$(SRCROOT)/source/restore-symbol.pch";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/class-dump/Source/**";
 			};
@@ -392,7 +392,7 @@
 		8F92BBCF1D6B7085008EA4C4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_PREFIX_HEADER = "restore-symbol/restore-symbol.pch";
+				GCC_PREFIX_HEADER = "$(SRCROOT)/source/restore-symbol.pch";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/class-dump/Source/**";
 			};

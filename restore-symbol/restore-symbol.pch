@@ -1,0 +1,17 @@
+//
+//  restore-symbol.pch
+//  restore-symbol
+//
+//  Created by EugeneYang on 16/8/23.
+//  Copyright © 2016年 Jun. All rights reserved.
+//
+
+#ifndef restore_symbol_pch
+#define restore_symbol_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#include <Foundation/Foundation.h>
+#import "CDExtensions.h"
+#define __cmd __PRETTY_FUNCTION__
+#endif /* restore_symbol_pch */

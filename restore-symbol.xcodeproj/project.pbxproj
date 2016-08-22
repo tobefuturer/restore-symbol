@@ -1,0 +1,425 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8F92BBCA1D6B7085008EA4C4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F92BBC91D6B7085008EA4C4 /* main.m */; };
+		8F92BBE31D6B70C7008EA4C4 /* libMachObjC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F92BBDA1D6B70A3008EA4C4 /* libMachObjC.a */; };
+		8F92BBEF1D6B7265008EA4C4 /* restore-symbol.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F92BBE71D6B7265008EA4C4 /* restore-symbol.m */; };
+		8F92BBF01D6B7265008EA4C4 /* RSScanMethodVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F92BBE91D6B7265008EA4C4 /* RSScanMethodVisitor.m */; };
+		8F92BBF11D6B7265008EA4C4 /* RSSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F92BBEB1D6B7265008EA4C4 /* RSSymbol.m */; };
+		8F92BBF21D6B7265008EA4C4 /* RSSymbolCollector.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F92BBED1D6B7265008EA4C4 /* RSSymbolCollector.m */; };
+		8F92BBF51D6B72E1008EA4C4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F92BBF41D6B72E1008EA4C4 /* Foundation.framework */; };
+		8F92BBF91D6B7445008EA4C4 /* CDClassDump.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F92BBF81D6B7445008EA4C4 /* CDClassDump.m */; };
+		8F92BBFD1D6B750E008EA4C4 /* CDVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F92BBFB1D6B750E008EA4C4 /* CDVisitor.m */; };
+		8F92BBFF1D6B758A008EA4C4 /* CDTypeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F92BBFE1D6B758A008EA4C4 /* CDTypeController.m */; };
+		8F92BC021D6B78FD008EA4C4 /* CDSearchPathState.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F92BC011D6B78FD008EA4C4 /* CDSearchPathState.m */; };
+		8F92BC041D6B790C008EA4C4 /* CDStructureTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F92BC031D6B790C008EA4C4 /* CDStructureTable.m */; };
+		8F92BC061D6B791D008EA4C4 /* CDStructureInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F92BC051D6B791D008EA4C4 /* CDStructureInfo.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8F92BBD91D6B70A3008EA4C4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8F92BBD01D6B70A3008EA4C4 /* class-dump.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 013D1F1113A5AE5A00BF0A67;
+			remoteInfo = MachObjC;
+		};
+		8F92BBDB1D6B70A3008EA4C4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8F92BBD01D6B70A3008EA4C4 /* class-dump.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 01EB825F13A590D9003EDE60;
+			remoteInfo = "class-dump";
+		};
+		8F92BBDD1D6B70A3008EA4C4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8F92BBD01D6B70A3008EA4C4 /* class-dump.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 013D1EFB13A5A0F100BF0A67;
+			remoteInfo = deprotect;
+		};
+		8F92BBDF1D6B70A3008EA4C4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8F92BBD01D6B70A3008EA4C4 /* class-dump.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 01B02CFF13A5B0DC0047BC53;
+			remoteInfo = formatType;
+		};
+		8F92BBE11D6B70A3008EA4C4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8F92BBD01D6B70A3008EA4C4 /* class-dump.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0165B8B11827137D00CC647F;
+			remoteInfo = UnitTests;
+		};
+		8F92BBF61D6B73BD008EA4C4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8F92BBD01D6B70A3008EA4C4 /* class-dump.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 013D1F1013A5AE5A00BF0A67;
+			remoteInfo = MachObjC;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8F92BBC41D6B7085008EA4C4 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		8F92BBC61D6B7085008EA4C4 /* restore-symbol */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "restore-symbol"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F92BBC91D6B7085008EA4C4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8F92BBD01D6B70A3008EA4C4 /* class-dump.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "class-dump.xcodeproj"; path = "class-dump/class-dump.xcodeproj"; sourceTree = "<group>"; };
+		8F92BBE71D6B7265008EA4C4 /* restore-symbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "restore-symbol.m"; sourceTree = "<group>"; };
+		8F92BBE81D6B7265008EA4C4 /* RSScanMethodVisitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSScanMethodVisitor.h; sourceTree = "<group>"; };
+		8F92BBE91D6B7265008EA4C4 /* RSScanMethodVisitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSScanMethodVisitor.m; sourceTree = "<group>"; };
+		8F92BBEA1D6B7265008EA4C4 /* RSSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSymbol.h; sourceTree = "<group>"; };
+		8F92BBEB1D6B7265008EA4C4 /* RSSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSymbol.m; sourceTree = "<group>"; };
+		8F92BBEC1D6B7265008EA4C4 /* RSSymbolCollector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSymbolCollector.h; sourceTree = "<group>"; };
+		8F92BBED1D6B7265008EA4C4 /* RSSymbolCollector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSymbolCollector.m; sourceTree = "<group>"; };
+		8F92BBF31D6B72C6008EA4C4 /* restore-symbol.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "restore-symbol.pch"; sourceTree = "<group>"; };
+		8F92BBF41D6B72E1008EA4C4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		8F92BBF81D6B7445008EA4C4 /* CDClassDump.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDClassDump.m; path = "../class-dump/Source/CDClassDump.m"; sourceTree = "<group>"; };
+		8F92BBFB1D6B750E008EA4C4 /* CDVisitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVisitor.m; path = "../class-dump/Source/CDVisitor.m"; sourceTree = "<group>"; };
+		8F92BBFE1D6B758A008EA4C4 /* CDTypeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDTypeController.m; path = "../class-dump/Source/CDTypeController.m"; sourceTree = "<group>"; };
+		8F92BC011D6B78FD008EA4C4 /* CDSearchPathState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDSearchPathState.m; path = "../class-dump/Source/CDSearchPathState.m"; sourceTree = "<group>"; };
+		8F92BC031D6B790C008EA4C4 /* CDStructureTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDStructureTable.m; path = "../class-dump/Source/CDStructureTable.m"; sourceTree = "<group>"; };
+		8F92BC051D6B791D008EA4C4 /* CDStructureInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDStructureInfo.m; path = "../class-dump/Source/CDStructureInfo.m"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8F92BBC31D6B7085008EA4C4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F92BBF51D6B72E1008EA4C4 /* Foundation.framework in Frameworks */,
+				8F92BBE31D6B70C7008EA4C4 /* libMachObjC.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8F92BBBD1D6B7085008EA4C4 = {
+			isa = PBXGroup;
+			children = (
+				8F92BBF41D6B72E1008EA4C4 /* Foundation.framework */,
+				8F92BBD01D6B70A3008EA4C4 /* class-dump.xcodeproj */,
+				8F92BBC81D6B7085008EA4C4 /* restore-symbol */,
+				8F92BBC71D6B7085008EA4C4 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8F92BBC71D6B7085008EA4C4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8F92BBC61D6B7085008EA4C4 /* restore-symbol */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8F92BBC81D6B7085008EA4C4 /* restore-symbol */ = {
+			isa = PBXGroup;
+			children = (
+				8F92BC001D6B789F008EA4C4 /* ref-to-class-dump */,
+				8F92BBE81D6B7265008EA4C4 /* RSScanMethodVisitor.h */,
+				8F92BBE91D6B7265008EA4C4 /* RSScanMethodVisitor.m */,
+				8F92BBEA1D6B7265008EA4C4 /* RSSymbol.h */,
+				8F92BBEB1D6B7265008EA4C4 /* RSSymbol.m */,
+				8F92BBEC1D6B7265008EA4C4 /* RSSymbolCollector.h */,
+				8F92BBED1D6B7265008EA4C4 /* RSSymbolCollector.m */,
+				8F92BBC91D6B7085008EA4C4 /* main.m */,
+				8F92BBE71D6B7265008EA4C4 /* restore-symbol.m */,
+				8F92BBF31D6B72C6008EA4C4 /* restore-symbol.pch */,
+			);
+			path = "restore-symbol";
+			sourceTree = "<group>";
+		};
+		8F92BBD11D6B70A3008EA4C4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8F92BBDA1D6B70A3008EA4C4 /* libMachObjC.a */,
+				8F92BBDC1D6B70A3008EA4C4 /* class-dump */,
+				8F92BBDE1D6B70A3008EA4C4 /* deprotect */,
+				8F92BBE01D6B70A3008EA4C4 /* formatType */,
+				8F92BBE21D6B70A3008EA4C4 /* UnitTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8F92BC001D6B789F008EA4C4 /* ref-to-class-dump */ = {
+			isa = PBXGroup;
+			children = (
+				8F92BC051D6B791D008EA4C4 /* CDStructureInfo.m */,
+				8F92BC031D6B790C008EA4C4 /* CDStructureTable.m */,
+				8F92BC011D6B78FD008EA4C4 /* CDSearchPathState.m */,
+				8F92BBF81D6B7445008EA4C4 /* CDClassDump.m */,
+				8F92BBFE1D6B758A008EA4C4 /* CDTypeController.m */,
+				8F92BBFB1D6B750E008EA4C4 /* CDVisitor.m */,
+			);
+			name = "ref-to-class-dump";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8F92BBC51D6B7085008EA4C4 /* restore-symbol */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8F92BBCD1D6B7085008EA4C4 /* Build configuration list for PBXNativeTarget "restore-symbol" */;
+			buildPhases = (
+				8F92BBC21D6B7085008EA4C4 /* Sources */,
+				8F92BBC31D6B7085008EA4C4 /* Frameworks */,
+				8F92BBC41D6B7085008EA4C4 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8F92BBF71D6B73BD008EA4C4 /* PBXTargetDependency */,
+			);
+			name = "restore-symbol";
+			productName = "restore-symbol";
+			productReference = 8F92BBC61D6B7085008EA4C4 /* restore-symbol */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8F92BBBE1D6B7085008EA4C4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = Jun;
+				TargetAttributes = {
+					8F92BBC51D6B7085008EA4C4 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+				};
+			};
+			buildConfigurationList = 8F92BBC11D6B7085008EA4C4 /* Build configuration list for PBXProject "restore-symbol" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 8F92BBBD1D6B7085008EA4C4;
+			productRefGroup = 8F92BBC71D6B7085008EA4C4 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 8F92BBD11D6B70A3008EA4C4 /* Products */;
+					ProjectRef = 8F92BBD01D6B70A3008EA4C4 /* class-dump.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				8F92BBC51D6B7085008EA4C4 /* restore-symbol */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		8F92BBDA1D6B70A3008EA4C4 /* libMachObjC.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libMachObjC.a;
+			remoteRef = 8F92BBD91D6B70A3008EA4C4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8F92BBDC1D6B70A3008EA4C4 /* class-dump */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = "class-dump";
+			remoteRef = 8F92BBDB1D6B70A3008EA4C4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8F92BBDE1D6B70A3008EA4C4 /* deprotect */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = deprotect;
+			remoteRef = 8F92BBDD1D6B70A3008EA4C4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8F92BBE01D6B70A3008EA4C4 /* formatType */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = formatType;
+			remoteRef = 8F92BBDF1D6B70A3008EA4C4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8F92BBE21D6B70A3008EA4C4 /* UnitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = UnitTests.xctest;
+			remoteRef = 8F92BBE11D6B70A3008EA4C4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8F92BBC21D6B7085008EA4C4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F92BBEF1D6B7265008EA4C4 /* restore-symbol.m in Sources */,
+				8F92BC041D6B790C008EA4C4 /* CDStructureTable.m in Sources */,
+				8F92BBCA1D6B7085008EA4C4 /* main.m in Sources */,
+				8F92BBF01D6B7265008EA4C4 /* RSScanMethodVisitor.m in Sources */,
+				8F92BC061D6B791D008EA4C4 /* CDStructureInfo.m in Sources */,
+				8F92BBF21D6B7265008EA4C4 /* RSSymbolCollector.m in Sources */,
+				8F92BBF11D6B7265008EA4C4 /* RSSymbol.m in Sources */,
+				8F92BBF91D6B7445008EA4C4 /* CDClassDump.m in Sources */,
+				8F92BC021D6B78FD008EA4C4 /* CDSearchPathState.m in Sources */,
+				8F92BBFF1D6B758A008EA4C4 /* CDTypeController.m in Sources */,
+				8F92BBFD1D6B750E008EA4C4 /* CDVisitor.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8F92BBF71D6B73BD008EA4C4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MachObjC;
+			targetProxy = 8F92BBF61D6B73BD008EA4C4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		8F92BBCB1D6B7085008EA4C4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		8F92BBCC1D6B7085008EA4C4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		8F92BBCE1D6B7085008EA4C4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PREFIX_HEADER = "restore-symbol/restore-symbol.pch";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/class-dump/Source/**";
+			};
+			name = Debug;
+		};
+		8F92BBCF1D6B7085008EA4C4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PREFIX_HEADER = "restore-symbol/restore-symbol.pch";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/class-dump/Source/**";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8F92BBC11D6B7085008EA4C4 /* Build configuration list for PBXProject "restore-symbol" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8F92BBCB1D6B7085008EA4C4 /* Debug */,
+				8F92BBCC1D6B7085008EA4C4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8F92BBCD1D6B7085008EA4C4 /* Build configuration list for PBXNativeTarget "restore-symbol" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8F92BBCE1D6B7085008EA4C4 /* Debug */,
+				8F92BBCF1D6B7085008EA4C4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8F92BBBE1D6B7085008EA4C4 /* Project object */;
+}

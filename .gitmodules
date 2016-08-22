@@ -1,0 +1,3 @@
+[submodule "class-dump"]
+	path = class-dump
+	url = https://github.com/0xced/class-dump

@@ -17,6 +17,7 @@
     NSArray *symbols = [NSJSONSerialization JSONObjectWithData:json options:NSJSONReadingMutableContainers error:&e];
     
     if (!symbols) {
+        fprintf(stderr,"Parse json error!\n");
         fprintf(stderr,"%s\n", e.description.UTF8String);
         return nil;
     }

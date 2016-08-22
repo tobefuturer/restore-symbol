@@ -39,7 +39,7 @@ void print_usage(void)
             "  where options are:\n"
             "        -o <output-file>           New mach-o-file path\n"
             "        --disable-oc-detect        Disable auto detect and add oc method into symbol table,\n"
-            "                                   just add symbol in json file\n"
+            "                                   only add symbol in json file\n"
             "        -j <json-symbol-file>      Json file containing extra symbol info, the key is \"name\",\"address\"\n                                   like this:\n                                   \n"
             "                                        [\n                                         {\n                                          \"name\": \"main\", \n                                          \"address\": \"0xXXXXXX\"\n                                         }, \n                                         {\n                                          \"name\": \"-[XXXX XXXXX]\", \n                                          \"address\": \"0xXXXXXX\"\n                                         },\n                                         .... \n                                        ]\n"
             

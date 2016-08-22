@@ -43,6 +43,18 @@ void restore_symbol(NSString * inpath, NSString *outpath, NSString *jsonPath, bo
         exit(1);
     }
     
+    if (jsonPath.length != 0 && ![[NSFileManager defaultManager] fileExistsAtPath:jsonPath]) {
+        fprintf(stderr, "Error: Json file doesn't exist!\n");
+        exit(1);
+    }
+    
+    
+   
+    if ([outpath length] == 0) {
+        fprintf(stderr, "Error: No output file path!\n");
+        exit(1);
+    }
+    
     
     fprintf(stderr, "=========== Start =============\n");
     
@@ -69,7 +81,7 @@ void restore_symbol(NSString * inpath, NSString *outpath, NSString *jsonPath, bo
     collector.machOFile = machOFile;
     
     if (oc_detect_enable) {
-        fprintf(stderr, "Scan OC methoc in mach-o-file.\n");
+        fprintf(stderr, "Scan OC method in mach-o-file.\n");
 
         CDClassDump *classDump = [[CDClassDump alloc] init];
         CDArch targetArch;
@@ -95,13 +107,18 @@ void restore_symbol(NSString * inpath, NSString *outpath, NSString *jsonPath, bo
             
         }
  
-        fprintf(stderr, "Scan OC methoc finish.\n");
+        fprintf(stderr, "Scan OC method finish.\n");
     }
     
     
     if (jsonPath != nil && jsonPath.length != 0) {
         fprintf(stderr, "Parse symbols in json file.\n");
-        NSArray *jsonSymbols = [RSSymbol symbolsWithJson:[NSData dataWithContentsOfFile:jsonPath]];
+        NSData * jsonData = [NSData dataWithContentsOfFile:jsonPath];
+        if (jsonData == nil) {
+            fprintf(stderr, "Can't load json data.\n");
+            exit(1);
+        }
+        NSArray *jsonSymbols = [RSSymbol symbolsWithJson:jsonData];
         if (jsonSymbols == nil) {
             fprintf(stderr,"Error: Json file cann't parse!");
             exit(1);

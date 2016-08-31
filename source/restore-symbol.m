@@ -33,7 +33,7 @@
 
 
 
-void restore_symbol(NSString * inpath, NSString *outpath, NSString *jsonPath, bool oc_detect_enable){
+void restore_symbol(NSString * inpath, NSString *outpath, NSString *jsonPath, bool oc_detect_enable, bool replace_restrict){
     
     
     
@@ -49,7 +49,7 @@ void restore_symbol(NSString * inpath, NSString *outpath, NSString *jsonPath, bo
     }
     
     
-   
+    
     if ([outpath length] == 0) {
         fprintf(stderr, "Error: No output file path!\n");
         exit(1);
@@ -76,13 +76,13 @@ void restore_symbol(NSString * inpath, NSString *outpath, NSString *jsonPath, bo
     CDMachOFile * machOFile = (CDMachOFile *)ofile;
     const bool Is32Bit = ! machOFile.uses64BitABI;
     
-
+    
     RSSymbolCollector *collector = [RSSymbolCollector new];
     collector.machOFile = machOFile;
     
     if (oc_detect_enable) {
         fprintf(stderr, "Scan OC method in mach-o-file.\n");
-
+        
         CDClassDump *classDump = [[CDClassDump alloc] init];
         CDArch targetArch;
         if ([machOFile bestMatchForLocalArch:&targetArch] == NO) {
@@ -106,7 +106,7 @@ void restore_symbol(NSString * inpath, NSString *outpath, NSString *jsonPath, bo
             [classDump recursivelyVisit:visitor];
             
         }
- 
+        
         fprintf(stderr, "Scan OC method finish.\n");
     }
     
@@ -145,6 +145,18 @@ void restore_symbol(NSString * inpath, NSString *outpath, NSString *jsonPath, bo
     uint32 origin_string_table_size = machOFile.symbolTable.strsize;
     uint32 origin_symbol_table_offset = machOFile.symbolTable.symoff;
     uint32 origin_symbol_table_num = machOFile.symbolTable.nsyms;
+    
+    
+    if (replace_restrict){
+        CDLCSegment * restrict_seg = [machOFile segmentWithName:@"__RESTRICT"];
+        
+        struct segment_command *restrict_seg_cmd = (struct segment_command *)((char *)outData.mutableBytes + restrict_seg.commandOffset);
+        struct section *restrict_section = (struct section *)((char *)outData.mutableBytes + restrict_seg.commandOffset + (Is32Bit? sizeof(struct segment_command) : sizeof(struct segment_command_64)));
+        
+        
+        strncpy(restrict_seg_cmd -> segname, "__restrict", 16);
+        strncpy(restrict_section -> segname, "__restrict", 16);
+    }
     
     //LC_CODE_SIGNATURE need align 16 byte, so add padding at end of string table.
     uint32 string_table_padding = 0;

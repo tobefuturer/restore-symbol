@@ -40,6 +40,8 @@ Usage: restore-symbol -o <output-file> [-j <json-symbol-file>] <mach-o-file>
         -o <output-file>           New mach-o-file path
         --disable-oc-detect        Disable auto detect and add oc method into symbol table,
                                    only add symbol in json file
+        --replace-restrict         New mach-o-file will replace the LC_SEGMENT(__RESTRICT,__restrict)
+                                   with LC_SEGMENT(__restrict,__restrict) to close dylib inject protection
         -j <json-symbol-file>      Json file containing extra symbol info, the key is "name","address"
                                    like this:
 

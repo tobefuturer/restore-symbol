@@ -25,6 +25,7 @@
 
 #define RS_OPT_DISABLE_OC_DETECT 1
 #define RS_OPT_VERSION 2
+#define RS_OPT_REPLACE_RESTRICT 3
 
 
 
@@ -40,6 +41,8 @@ void print_usage(void)
             "        -o <output-file>           New mach-o-file path\n"
             "        --disable-oc-detect        Disable auto detect and add oc method into symbol table,\n"
             "                                   only add symbol in json file\n"
+            "        --replace-restrict         New mach-o-file will replace the LC_SEGMENT(__RESTRICT,__restrict)\n"
+            "                                   with LC_SEGMENT(__restrict,__restrict) to close dylib inject protection\n"
             "        -j <json-symbol-file>      Json file containing extra symbol info, the key is \"name\",\"address\"\n                                   like this:\n                                   \n"
             "                                        [\n                                         {\n                                          \"name\": \"main\", \n                                          \"address\": \"0xXXXXXX\"\n                                         }, \n                                         {\n                                          \"name\": \"-[XXXX XXXXX]\", \n                                          \"address\": \"0xXXXXXX\"\n                                         },\n                                         .... \n                                        ]\n"
             
@@ -50,7 +53,7 @@ void print_usage(void)
 
 
 
-void restore_symbol(NSString * inpath, NSString * output, NSString *jsonPath, bool oc_detect_enable);
+void restore_symbol(NSString * inpath, NSString *outpath, NSString *jsonPath, bool oc_detect_enable, bool replace_restrict);
 
 int main(int argc, char * argv[]) {
     
@@ -58,6 +61,7 @@ int main(int argc, char * argv[]) {
     
     
     bool oc_detect_enable = true;
+    bool replace_restrict = false;
     NSString *inpath = nil;
     NSString * outpath = nil;
     NSString *jsonPath = nil;
@@ -71,6 +75,8 @@ int main(int argc, char * argv[]) {
         { "output",                  required_argument, NULL, 'o' },
         { "json",                    required_argument, NULL, 'j' },
         { "version",                 no_argument,       NULL, RS_OPT_VERSION },
+        { "replace-restrict",        no_argument,       NULL, RS_OPT_REPLACE_RESTRICT },
+        
         { NULL,                      0,                 NULL, 0 },
         
     };
@@ -100,6 +106,9 @@ int main(int argc, char * argv[]) {
                 oc_detect_enable = false;
                 break;
                 
+            case RS_OPT_REPLACE_RESTRICT:
+                replace_restrict = true;
+                break;
             default:
                 break;
         }
@@ -115,6 +124,6 @@ int main(int argc, char * argv[]) {
     }
     
     
-    restore_symbol(inpath, outpath, jsonPath, oc_detect_enable);
+    restore_symbol(inpath, outpath, jsonPath, oc_detect_enable, replace_restrict);
     
 }

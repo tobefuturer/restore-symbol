@@ -151,11 +151,21 @@ void restore_symbol(NSString * inpath, NSString *outpath, NSString *jsonPath, bo
         CDLCSegment * restrict_seg = [machOFile segmentWithName:@"__RESTRICT"];
         
         struct segment_command *restrict_seg_cmd = (struct segment_command *)((char *)outData.mutableBytes + restrict_seg.commandOffset);
-        struct section *restrict_section = (struct section *)((char *)outData.mutableBytes + restrict_seg.commandOffset + (Is32Bit? sizeof(struct segment_command) : sizeof(struct segment_command_64)));
+        struct section *restrict_section = NULL;
         
+        int cmd_size = (Is32Bit? sizeof(struct segment_command) : sizeof(struct segment_command_64));
+        if (restrict_seg.cmdsize > cmd_size) {
+            restrict_section = (struct section *)((char *)outData.mutableBytes + restrict_seg.commandOffset + cmd_size);
+        }
         
-        strncpy(restrict_seg_cmd -> segname, "__restrict", 16);
-        strncpy(restrict_section -> segname, "__restrict", 16);
+        if (restrict_seg && restrict_section) {
+            fprintf(stderr, "rename segment __RESTRICT  in mach-o header.\n");
+            strncpy(restrict_seg_cmd -> segname, "__restrict", 16);
+            strncpy(restrict_section -> segname, "__restrict", 16);
+        } else {
+            fprintf(stderr, "No section (__RESTRICT,__restrict) in mach-o header.\n");
+        }
+        
     }
     
     //LC_CODE_SIGNATURE need align 16 byte, so add padding at end of string table.

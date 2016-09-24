@@ -12,6 +12,7 @@
 #import "CDLCDylib.h"
 #import "CDOCClass.h"
 #import "CDOCCategory.h"
+#import "CDOCClassReference.h"
 #import "CDOCMethod.h"
 //#import "CDTypeController.h"
 
@@ -64,8 +65,18 @@
     if (method.address == 0 ) {
         return;
     }
-    NSString *name = [NSString stringWithFormat:@"+[%@ %@]", _context.name, method.name];
     
+    NSString *name = nil;
+    if ([_context isKindOfClass:[CDOCClass class]]) {
+        name = [NSString stringWithFormat:@"+[%@ %@]", _context.name, method.name];
+    } else if([_context isKindOfClass:[CDOCCategory class]]) {
+        NSString * className = [[(CDOCCategory *)_context classRef] className];
+        if (!className) className = @"";
+        name = [NSString stringWithFormat:@"+[%@(%@) %@]", className ,_context.name, method.name];
+    }
+    
+    if (!name) return;
+
     RSSymbol *s = [RSSymbol symbolWithName:name address:method.address];
     
     [self.collector addSymbol:s];

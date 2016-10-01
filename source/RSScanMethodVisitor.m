@@ -60,23 +60,26 @@
     [self setContext:category];
 }
 
+
+- (NSString *)getCurrentClassName{
+    if ([_context isKindOfClass:[CDOCClass class]]) {
+        return _context.name;
+    } else if([_context isKindOfClass:[CDOCCategory class]]) {
+        NSString * className = [[(CDOCCategory *)_context classRef] className];
+        if (!className) className = @"";
+        return [NSString stringWithFormat:@"%@(%@)", className ,_context.name];
+    }
+    return _context.name;
+}
+
 - (void)visitClassMethod:(CDOCMethod *)method;
 {
     if (method.address == 0 ) {
         return;
     }
     
-    NSString *name = nil;
-    if ([_context isKindOfClass:[CDOCClass class]]) {
-        name = [NSString stringWithFormat:@"+[%@ %@]", _context.name, method.name];
-    } else if([_context isKindOfClass:[CDOCCategory class]]) {
-        NSString * className = [[(CDOCCategory *)_context classRef] className];
-        if (!className) className = @"";
-        name = [NSString stringWithFormat:@"+[%@(%@) %@]", className ,_context.name, method.name];
-    }
+    NSString *name = [NSString stringWithFormat:@"+[%@ %@]", [self getCurrentClassName], method.name];
     
-    if (!name) return;
-
     RSSymbol *s = [RSSymbol symbolWithName:name address:method.address];
     
     [self.collector addSymbol:s];
@@ -88,7 +91,7 @@
     if (method.address == 0 ) {
         return;
     }
-    NSString *name = [NSString stringWithFormat:@"-[%@ %@]", _context.name, method.name];
+    NSString *name = [NSString stringWithFormat:@"-[%@ %@]", [self getCurrentClassName], method.name];
     
     RSSymbol *s = [RSSymbol symbolWithName:name address:method.address];
     

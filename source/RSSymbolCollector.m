@@ -75,8 +75,7 @@
             
         } else {
             struct nlist_64 * list = nlistsData.mutableBytes;
-            bool isThumb = symbol.address & 1;
-            list[i].n_desc = isThumb ? N_ARM_THUMB_DEF : 0;
+            list[i].n_desc =  0;
             list[i].n_type = N_PEXT | N_SECT;
             list[i].n_sect = [self n_sectForAddress:symbol.address];
             list[i].n_value = symbol.address;

@@ -228,8 +228,17 @@ void restore_symbol(NSString * inpath, NSString *outpath, NSString *jsonPath, bo
     
     [outData replaceBytesInRange:NSMakeRange(origin_symbol_table_offset + origin_symbol_table_num * NListSize , 0) withBytes:(const void *)symbol_table_append_data.bytes   length:increase_size_symtab];
     
-    [outData writeToFile:outpath atomically:true];
-    chmod(outpath.UTF8String, 0755);
+    NSError * err = nil;
+    [outData writeToFile:outpath options:NSDataWritingWithoutOverwriting error:&err];
+    
+    if (!err) {
+        chmod(outpath.UTF8String, 0755);
+    }else{
+        fprintf(stderr,"Write file error : %s", [err localizedDescription].UTF8String);
+        return;
+    }
+    
+    
     fprintf(stderr,"=========== Finish ============\n");
     
 }

@@ -11,6 +11,9 @@ import json
 
 IS32BIT = not idaapi.get_inf_structure().is_64bit()
 
+IS_MAC = 'X86_64' in idaapi.get_file_type_name()
+
+print "Start analyze binary for " + ("Mac" if IS_MAC else "iOS")
 
 
 def isInText(x):
@@ -84,7 +87,10 @@ def superFuncForStackBlock(block_func):
     if len(superFuncs) != 1:
         return None
     super_func_addr = superFuncs[0]
-    return super_func_addr | GetReg(super_func_addr, "T") # thumb
+    if IS_MAC:
+        return super_func_addr
+    else:
+        return super_func_addr | GetReg(super_func_addr, "T") # thumb
 
 
 def superFuncForBlockFunc(block_func):
@@ -110,8 +116,9 @@ def findBlockName(block_func):
     superBlockFuncAddr = superFuncForBlockFunc(block_func)
     if superBlockFuncAddr == None:
         return "";
-
-    superBlockFuncAddr = superBlockFuncAddr | GetReg(superBlockFuncAddr, "T") # thumb
+    if not IS_MAC:
+        superBlockFuncAddr = superBlockFuncAddr | GetReg(superBlockFuncAddr, "T") # thumb
+        
     superBlockName = findBlockName(superBlockFuncAddr)
 
     if len(superBlockName) == 0:

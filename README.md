@@ -7,7 +7,10 @@ Example: restore symbol for Alipay
 
 
 ## How to use
-- 1. Download source code and compile 
+
+### Just restore symbol of oc method
+
+- 1. Download source code and compile.
 
 ```
 
@@ -17,13 +20,41 @@ cd restore-symbol && make
 
 ```
 
-- 2. Search block symbol in IDA to get json symbol file, using script([`search_oc_block/ida_search_block.py`](https://github.com/tobefuturer/restore-symbol/blob/master/search_oc_block/ida_search_block.py)) .
+- 2. Restore symbol using this command. It will output a new mach-o file with symbol.
+
+```
+
+./restore-symbol /pathto/origin_mach_o_file -o /pathto/mach_o_with_symbol 
+
+```
+
+- 3. Copy the new mach-o file (with symbol) to app bundle, replace the origin mach-o file with new mach-o file. Resign app bundle.
+
+```
+
+codesign -f -s "iPhone Developer: XXXXXXX" --signing-time none --entitlement ./xxxx.app.xcent ./xxxx.app
+
+```
+
+- 4. Install the app bundle to iOS device, and use lldb to debug the app. Maybe you can use the ```ios-deploy```, or other way you like. If you use ```ios-deploy``` , you can execute this command.
+
+```
+
+brew install ios-deploy
+ios-deploy -d -b xxxx.app
+
+```
+- 5. Now you can use ```b -[class method]``` to set breakpoint.
+
+### Restore symbol of oc block
+
+- 1. Search block symbol in IDA to get json symbol file, using script([`search_oc_block/ida_search_block.py`](https://github.com/tobefuturer/restore-symbol/blob/master/search_oc_block/ida_search_block.py)) .
 
 ![](http://blog.imjun.net/2016/08/25/iOS%E7%AC%A6%E5%8F%B7%E8%A1%A8%E6%81%A2%E5%A4%8D-%E9%80%86%E5%90%91%E6%94%AF%E4%BB%98%E5%AE%9D/ida_result_position.png)
 
 ![](http://blog.imjun.net/2016/08/25/iOS%E7%AC%A6%E5%8F%B7%E8%A1%A8%E6%81%A2%E5%A4%8D-%E9%80%86%E5%90%91%E6%94%AF%E4%BB%98%E5%AE%9D/ida_result_sample.jpg)
 
-- 3. Use command line tool(restore-symbol) to inject oc method symbols and block symbols into mach o file.
+- 2. Use command line tool(restore-symbol) to inject oc method symbols and block symbols into mach o file.
 
 ```
 
@@ -31,6 +62,7 @@ cd restore-symbol && make
 
 ```
 
+- 3. Other steps(resign, install, debug) are samen as above.
 
 ## Command Line Usage 
 ```

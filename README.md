@@ -50,9 +50,9 @@ ios-deploy -d -b xxxx.app
 
 - 1. Search block symbol in IDA to get json symbol file, using script([`search_oc_block/ida_search_block.py`](https://github.com/tobefuturer/restore-symbol/blob/master/search_oc_block/ida_search_block.py)) .
 
-![](http://blog.imjun.net/2016/08/25/iOS%E7%AC%A6%E5%8F%B7%E8%A1%A8%E6%81%A2%E5%A4%8D-%E9%80%86%E5%90%91%E6%94%AF%E4%BB%98%E5%AE%9D/ida_result_position.png)
+![](http://blog.imjun.net/posts/restore-symbol-of-iOS-app/ida_result_position.png)
 
-![](http://blog.imjun.net/2016/08/25/iOS%E7%AC%A6%E5%8F%B7%E8%A1%A8%E6%81%A2%E5%A4%8D-%E9%80%86%E5%90%91%E6%94%AF%E4%BB%98%E5%AE%9D/ida_result_sample.jpg)
+![](http://blog.imjun.net/posts/restore-symbol-of-iOS-app/ida_result_sample.jpg)
 
 - 2. Use command line tool(restore-symbol) to inject oc method symbols and block symbols into mach o file.
 

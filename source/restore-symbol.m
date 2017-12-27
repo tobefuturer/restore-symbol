@@ -49,19 +49,18 @@ void restore_symbol(NSString * inpath, NSString *outpath, NSString *jsonPath, bo
     }
     
     
-    
     if ([outpath length] == 0) {
         fprintf(stderr, "Error: No output file path!\n");
         exit(1);
     }
     
+    if ([[NSFileManager defaultManager] fileExistsAtPath:outpath]) {
+        fprintf(stderr, "Error: Output file has exist!\n");
+        exit(1);
+    }
     
     fprintf(stderr, "=========== Start =============\n");
     
-    
-    
-    
-    [[NSFileManager defaultManager] removeItemAtPath:outpath error:nil];
     
     NSMutableData * outData = [[NSMutableData alloc] initWithContentsOfFile:inpath];
     

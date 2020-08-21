@@ -56,74 +56,68 @@ void print_usage(void)
 void restore_symbol(NSString * inpath, NSString *outpath, NSString *jsonPath, bool oc_detect_enable, bool replace_restrict);
 
 int main(int argc, char * argv[]) {
-    
-    
-    
-    
-    bool oc_detect_enable = true;
-    bool replace_restrict = false;
-    NSString *inpath = nil;
-    NSString * outpath = nil;
-    NSString *jsonPath = nil;
-    
-    BOOL shouldPrintVersion = NO;
-    
-    int ch;
-    
-    struct option longopts[] = {
-        { "disable-oc-detect",       no_argument,       NULL, RS_OPT_DISABLE_OC_DETECT },
-        { "output",                  required_argument, NULL, 'o' },
-        { "json",                    required_argument, NULL, 'j' },
-        { "version",                 no_argument,       NULL, RS_OPT_VERSION },
-        { "replace-restrict",        no_argument,       NULL, RS_OPT_REPLACE_RESTRICT },
+    @autoreleasepool {
+        bool oc_detect_enable = true;
+        bool replace_restrict = false;
+        NSString *inpath = nil;
+        NSString * outpath = nil;
+        NSString *jsonPath = nil;
         
-        { NULL,                      0,                 NULL, 0 },
+        BOOL shouldPrintVersion = NO;
         
-    };
-    
-    
-    if (argc == 1) {
-        print_usage();
-        exit(0);
-    }
-    
-    
-    
-    while ( (ch = getopt_long(argc, argv, "o:j:", longopts, NULL)) != -1) {
-        switch (ch) {
-            case 'o':
-                outpath = [NSString stringWithUTF8String:optarg];
-                break;
-            case 'j':
-                jsonPath = [NSString stringWithUTF8String:optarg];
-                break;
-                
-            case RS_OPT_VERSION:
-                shouldPrintVersion = YES;
-                break;
-                
-            case RS_OPT_DISABLE_OC_DETECT:
-                oc_detect_enable = false;
-                break;
-                
-            case RS_OPT_REPLACE_RESTRICT:
-                replace_restrict = true;
-                break;
-            default:
-                break;
+        int ch;
+        
+        struct option longopts[] = {
+            { "disable-oc-detect",      optional_argument,       NULL, RS_OPT_DISABLE_OC_DETECT },
+            { "output",                  required_argument,       NULL, 'o' },
+            { "json",                    optional_argument,       NULL, 'j' },
+            { "version",                 optional_argument,       NULL, RS_OPT_VERSION },
+            { "replace-restrict",       optional_argument,      NULL, RS_OPT_REPLACE_RESTRICT },
+            
+            { NULL,                      0,                 NULL, 0 },
+        };
+        
+        
+        if (argc == 1) {
+            print_usage();
+            exit(0);
+        }        
+        
+        while ( (ch = getopt_long(argc, argv, "o:j:", longopts, NULL)) != -1) {
+            switch (ch) {
+                case 'o':
+                    outpath = [NSString stringWithUTF8String:optarg];
+                    break;
+                case 'j':
+                    jsonPath = [NSString stringWithUTF8String:optarg];
+                    break;
+                    
+                case RS_OPT_VERSION:
+                    shouldPrintVersion = YES;
+                    break;
+                    
+                case RS_OPT_DISABLE_OC_DETECT:
+                    oc_detect_enable = false;
+                    break;
+                    
+                case RS_OPT_REPLACE_RESTRICT:
+                    replace_restrict = true;
+                    break;
+                default:
+                    break;
+            }
         }
+        
+        if (shouldPrintVersion) {
+            printf("restore-symbol %s compiled %s\n", RESTORE_SYMBOL_VERSION, __DATE__ " " __TIME__);
+            exit(0);
+        }
+        
+        if (optind < argc) {
+            inpath = [NSString stringWithUTF8String:argv[optind]];
+        }
+        
+        
+        restore_symbol(inpath, outpath, jsonPath, oc_detect_enable, replace_restrict);
     }
-    
-    if (shouldPrintVersion) {
-        printf("restore-symbol %s compiled %s\n", RESTORE_SYMBOL_VERSION, __DATE__ " " __TIME__);
-        exit(0);
-    }
-    
-    if (optind < argc) {
-        inpath = [NSString stringWithUTF8String:argv[optind]];
-    }
-    
-    
-    restore_symbol(inpath, outpath, jsonPath, oc_detect_enable, replace_restrict);
-    
 }

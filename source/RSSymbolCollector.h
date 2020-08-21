@@ -12,7 +12,7 @@
 
 @interface RSSymbolCollector : NSObject
 
-@property (nonatomic, weak) CDMachOFile * machOFile;
+@property (nonatomic, weak) CDMachOFile *machOFile;
 @property (nonatomic, strong) NSMutableArray *symbols;
 
 
@@ -20,5 +20,5 @@
 - (void)addSymbols:(NSArray<RSSymbol *> *)symbols;
 
 
-- (void)generateAppendStringTable:(NSData **)stringTable appendSymbolTable:(NSData **)nlist;
+- (BOOL)generateAppendStringTable:(NSData **)stringTable appendSymbolTable:(NSData **)nlist;
 @end

@@ -13,5 +13,4 @@
 
 - (instancetype)initWithSymbolCollector:(RSSymbolCollector*)collector;
 
-
 @end

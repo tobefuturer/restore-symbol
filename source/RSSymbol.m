@@ -12,11 +12,11 @@
 
 
 + (NSArray<RSSymbol *> *)symbolsWithJson:(NSData *)json{
-    NSError * e = nil;
+    NSError *e = nil;
     
     NSArray *symbols = [NSJSONSerialization JSONObjectWithData:json options:NSJSONReadingMutableContainers error:&e];
     
-    if (!symbols) {
+    if (!symbols || e) {
         fprintf(stderr,"Parse json error!\n");
         fprintf(stderr,"%s\n", e.description.UTF8String);
         return nil;
@@ -26,9 +26,9 @@
     for (NSDictionary *dict in symbols) {
         NSString *addressString = dict[RS_JSON_KEY_ADDRESS];
         unsigned long long address;
-        NSScanner* scanner = [NSScanner scannerWithString:addressString];
+        NSScanner *scanner = [NSScanner scannerWithString:addressString];
         [scanner scanHexLongLong:&address];
-        RSSymbol * symbol = [self symbolWithName:dict[RS_JSON_KEY_SYMBOL_NAME] address:address];
+        RSSymbol *symbol = [self symbolWithName:dict[RS_JSON_KEY_SYMBOL_NAME] address:address];
         [rt addObject:symbol];
     }
     

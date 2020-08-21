@@ -28,14 +28,12 @@
 
 @implementation RSScanMethodVisitor
 {
-    CDOCProtocol *_context;
-
+    CDOCProtocol *_context;// ARC default nil.
 }
 
-- (id)initWithSymbolCollector:(RSSymbolCollector *)collector
+- (instancetype)initWithSymbolCollector:(RSSymbolCollector *)collector
 {
-    if ((self = [super init])) {
-        _context = nil;
+    if (self = [super init]) {
         _collector = collector;
     }
 
@@ -43,28 +41,20 @@
 }
 
 #pragma mark -
-
-- (void)willVisitProtocol:(CDOCProtocol *)protocol;
-{
+- (void)willVisitProtocol:(CDOCProtocol *)protocol {
     [self setContext:protocol];
 }
 
-- (void)willVisitClass:(CDOCClass *)aClass;
-{
+- (void)willVisitClass:(CDOCClass *)aClass {
     [self setContext:aClass];
 }
 
-
-- (void)willVisitCategory:(CDOCCategory *)category;
-{
+- (void)willVisitCategory:(CDOCCategory *)category {
     [self setContext:category];
 }
 
-
-- (NSString *)getCurrentClassName{
-    if ([_context isKindOfClass:[CDOCClass class]]) {
-        return _context.name;
-    } else if([_context isKindOfClass:[CDOCCategory class]]) {
+- (NSString *)getCurrentClassName {
+    if([_context isKindOfClass:[CDOCCategory class]]) {
         NSString * className = [[(CDOCCategory *)_context classRef] className];
         if (!className) className = @"";
         return [NSString stringWithFormat:@"%@(%@)", className ,_context.name];
@@ -72,8 +62,7 @@
     return _context.name;
 }
 
-- (void)visitClassMethod:(CDOCMethod *)method;
-{
+- (void)visitClassMethod:(CDOCMethod *)method {
     if (method.address == 0 ) {
         return;
     }
@@ -86,8 +75,7 @@
     
 }
 
-- (void)visitInstanceMethod:(CDOCMethod *)method propertyState:(CDVisitorPropertyState *)propertyState;
-{
+- (void)visitInstanceMethod:(CDOCMethod *)method propertyState:(CDVisitorPropertyState *)propertyState {
     if (method.address == 0 ) {
         return;
     }
@@ -102,13 +90,10 @@
 
 #pragma mark -
 
-- (void)setContext:(CDOCProtocol *)newContext;
-{
+- (void)setContext:(CDOCProtocol *)newContext {
     if (newContext != _context) {
         _context = newContext;
     }
 }
-
-
 
 @end

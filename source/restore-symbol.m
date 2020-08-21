@@ -21,29 +21,19 @@
 #import "RSScanMethodVisitor.h"
 #import "CDFatFile.h"
 
-
-
 #define IntSize (Is32Bit? sizeof(uint32_t) : sizeof(uint64_t) )
 #define NListSize (Is32Bit? sizeof(struct nlist) : sizeof(struct nlist_64) )
 
-
 #define vm_addr_round(v,r) ( (v + (r-1) ) & (-r) )
 
-
-
-
-
 void restore_symbol(NSString * inpath, NSString *outpath, NSString *jsonPath, bool oc_detect_enable, bool replace_restrict){
-    
-    
-    
-    
     if (![[NSFileManager defaultManager] fileExistsAtPath:inpath]) {
         fprintf(stderr, "Error: Input file doesn't exist!\n");
         exit(1);
     }
     
-    if (jsonPath.length != 0 && ![[NSFileManager defaultManager] fileExistsAtPath:jsonPath]) {
+    const BOOL hasJsonFile = (jsonPath != nil);
+    if (hasJsonFile && jsonPath.length != 0 && ![[NSFileManager defaultManager] fileExistsAtPath:jsonPath]) {
         fprintf(stderr, "Error: Json file doesn't exist!\n");
         exit(1);
     }
@@ -59,7 +49,7 @@ void restore_symbol(NSString * inpath, NSString *outpath, NSString *jsonPath, bo
         exit(1);
     }
     
-    fprintf(stderr, "=========== Start =============\n");
+    fprintf(stdout, "=========== Start =============\n");
     
     
     NSMutableData * outData = [[NSMutableData alloc] initWithContentsOfFile:inpath];
@@ -70,17 +60,15 @@ void restore_symbol(NSString * inpath, NSString *outpath, NSString *jsonPath, bo
         fprintf(stderr,"Restore-symbol supports armv7 and arm64 archtecture, but not support fat file. Please use lipo to thin the image file first.");
         exit(1);
     }
-    
-    
+        
     CDMachOFile * machOFile = (CDMachOFile *)ofile;
     const bool Is32Bit = ! machOFile.uses64BitABI;
-    
-    
+        
     RSSymbolCollector *collector = [RSSymbolCollector new];
     collector.machOFile = machOFile;
     
     if (oc_detect_enable) {
-        fprintf(stderr, "Scan OC method in mach-o-file.\n");
+        fprintf(stdout, "Scan OC method in mach-o-file.\n");
         
         CDClassDump *classDump = [[CDClassDump alloc] init];
         CDArch targetArch;
@@ -103,15 +91,13 @@ void restore_symbol(NSString * inpath, NSString *outpath, NSString *jsonPath, bo
             RSScanMethodVisitor *visitor = [[RSScanMethodVisitor alloc] initWithSymbolCollector:collector];
             visitor.classDump = classDump;
             [classDump recursivelyVisit:visitor];
-            
         }
         
-        fprintf(stderr, "Scan OC method finish.\n");
+        fprintf(stdout, "Scan OC method finish.\n");
     }
-    
-    
-    if (jsonPath != nil && jsonPath.length != 0) {
-        fprintf(stderr, "Parse symbols in json file.\n");
+        
+    if (hasJsonFile) {
+        fprintf(stdout, "Parse symbols in json file.\n");
         NSData * jsonData = [NSData dataWithContentsOfFile:jsonPath];
         if (jsonData == nil) {
             fprintf(stderr, "Can't load json data.\n");
@@ -124,27 +110,8 @@ void restore_symbol(NSString * inpath, NSString *outpath, NSString *jsonPath, bo
         } else {
             [collector addSymbols:jsonSymbols];
         }
-        fprintf(stderr, "Parse finish.\n");
+        fprintf(stdout, "Parse symbols in json finish.\n");
     }
-    
-    
-    NSData *string_table_append_data = nil;
-    NSData *symbol_table_append_data = nil;
-    [collector generateAppendStringTable:&string_table_append_data appendSymbolTable:&symbol_table_append_data];
-    
-    
-    uint32 increase_symbol_num = (uint32)collector.symbols.count;
-    uint32 increase_size_string_tab = (uint32)string_table_append_data.length;
-    uint32 increase_size_symtab = (uint32)symbol_table_append_data.length;
-    uint32 increase_size_all_without_padding = increase_size_symtab + increase_size_string_tab;
-    
-    
-    
-    uint32 origin_string_table_offset = machOFile.symbolTable.stroff;
-    uint32 origin_string_table_size = machOFile.symbolTable.strsize;
-    uint32 origin_symbol_table_offset = machOFile.symbolTable.symoff;
-    uint32 origin_symbol_table_num = machOFile.symbolTable.nsyms;
-    
     
     if (replace_restrict){
         CDLCSegment * restrict_seg = [machOFile segmentWithName:@"__RESTRICT"];
@@ -158,87 +125,97 @@ void restore_symbol(NSString * inpath, NSString *outpath, NSString *jsonPath, bo
         }
         
         if (restrict_seg && restrict_section) {
-            fprintf(stderr, "rename segment __RESTRICT  in mach-o header.\n");
+            fprintf(stdout, "rename segment __RESTRICT  in mach-o header.\n");
             strncpy(restrict_seg_cmd -> segname, "__restrict", 16);
             strncpy(restrict_section -> segname, "__restrict", 16);
         } else {
-            fprintf(stderr, "No section (__RESTRICT,__restrict) in mach-o header.\n");
+            fprintf(stdout, "No section (__RESTRICT,__restrict) in mach-o header.\n");
         }
-        
     }
-    
-    //LC_CODE_SIGNATURE need align 16 byte, so add padding at end of string table.
-    uint32 string_table_padding = 0;
-    {
-        CDLCLinkeditData * codesignature = nil;
-        for (CDLoadCommand *command in machOFile.loadCommands) {
-            if (command.cmd == LC_CODE_SIGNATURE){
-                codesignature = (CDLCLinkeditData *)command;
+        
+        
+    uint32 origin_string_table_offset = machOFile.symbolTable.stroff;
+    uint32 origin_string_table_size = machOFile.symbolTable.strsize;
+    uint32 origin_symbol_table_offset = machOFile.symbolTable.symoff;
+    uint32 origin_symbol_table_num = machOFile.symbolTable.nsyms;
+
+    BOOL addedSymbols = YES;
+    NSData *string_table_append_data = nil;
+    NSData *symbol_table_append_data = nil;
+    if (![collector generateAppendStringTable:&string_table_append_data appendSymbolTable:&symbol_table_append_data]) {
+        fprintf(stdout, "Symbols is empty.\n");
+        addedSymbols = NO;
+    }
+
+    if (addedSymbols) {
+        uint32 increase_symbol_num = (uint32)collector.symbols.count;
+        uint32 increase_size_string_tab = (uint32)string_table_append_data.length;
+        uint32 increase_size_symtab = (uint32)symbol_table_append_data.length;
+        uint32 increase_size_all_without_padding = increase_size_symtab + increase_size_string_tab;
+        
+        //LC_CODE_SIGNATURE need align 16 byte, so add padding at end of string table.
+        uint32 string_table_padding = 0;
+        {
+            CDLCLinkeditData * codesignature = nil;
+            for (CDLoadCommand *command in machOFile.loadCommands) {
+                if (command.cmd == LC_CODE_SIGNATURE){
+                    codesignature = (CDLCLinkeditData *)command;
+                }
+            }
+            
+            if (codesignature) {
+                struct linkedit_data_command *command = (struct linkedit_data_command *)((char *)outData.mutableBytes + codesignature.commandOffset);
+                uint32_t tmp_offset =  command -> dataoff + increase_size_all_without_padding;
+                uint32_t final_offset = vm_addr_round(tmp_offset, 16);
+                
+                string_table_padding = final_offset - tmp_offset;
+                command -> dataoff = final_offset;
             }
         }
         
-        if (codesignature) {
-            struct linkedit_data_command *command = (struct linkedit_data_command *)((char *)outData.mutableBytes + codesignature.commandOffset);
-            uint32_t tmp_offset =  command -> dataoff + increase_size_all_without_padding;
-            uint32_t final_offset = vm_addr_round(tmp_offset, 16);
-            
-            string_table_padding = final_offset - tmp_offset;
-            command -> dataoff = final_offset;
+        
+        {
+            CDLCSymbolTable *symtab = [machOFile symbolTable];
+            struct symtab_command *symtab_out = (struct symtab_command *)((char *)outData.mutableBytes + symtab.commandOffset);
+            symtab_out -> nsyms += increase_symbol_num;
+            symtab_out -> stroff += increase_size_symtab;
+            symtab_out -> strsize += increase_size_string_tab + string_table_padding;
         }
-    }
-    
-    
-    {
-        CDLCSymbolTable *symtab = [machOFile symbolTable];
-        struct symtab_command *symtab_out = (struct symtab_command *)((char *)outData.mutableBytes + symtab.commandOffset);
-        symtab_out -> nsyms += increase_symbol_num;
-        symtab_out -> stroff += increase_size_symtab;
-        symtab_out -> strsize += increase_size_string_tab + string_table_padding;
-    }
-    
-    {
-        CDLCDynamicSymbolTable *dysymtabCommand = [machOFile dynamicSymbolTable];
-        struct dysymtab_command *command = (struct dysymtab_command *)((char *)outData.mutableBytes + dysymtabCommand.commandOffset);
-        command -> indirectsymoff += increase_size_symtab;
-    }
-    
-    
-    
-    {
-        CDLCSegment * linkeditSegment = [machOFile segmentWithName:@"__LINKEDIT"];
-        if (Is32Bit) {
-            struct segment_command *linkedit_segment_command = (struct segment_command *)((char *)outData.mutableBytes + linkeditSegment.commandOffset);
-            linkedit_segment_command -> filesize += increase_size_all_without_padding + string_table_padding;
-            linkedit_segment_command -> vmsize = (uint32) vm_addr_round((linkedit_segment_command -> filesize), 0x4000);
-            
-            
-        } else {
-            
-            struct segment_command_64 *linkedit_segment_command = (struct segment_command_64  *)((char *)outData.mutableBytes + linkeditSegment.commandOffset);
-            linkedit_segment_command -> filesize += increase_size_all_without_padding + string_table_padding;
-            linkedit_segment_command -> vmsize = vm_addr_round((linkedit_segment_command -> filesize), 0x4000);
+        
+        {
+            CDLCDynamicSymbolTable *dysymtabCommand = [machOFile dynamicSymbolTable];
+            struct dysymtab_command *command = (struct dysymtab_command *)((char *)outData.mutableBytes + dysymtabCommand.commandOffset);
+            command -> indirectsymoff += increase_size_symtab;
         }
+        
+        {
+            CDLCSegment * linkeditSegment = [machOFile segmentWithName:@"__LINKEDIT"];
+            if (Is32Bit) {
+                struct segment_command *linkedit_segment_command = (struct segment_command *)((char *)outData.mutableBytes + linkeditSegment.commandOffset);
+                linkedit_segment_command -> filesize += increase_size_all_without_padding + string_table_padding;
+                linkedit_segment_command -> vmsize = (uint32) vm_addr_round((linkedit_segment_command -> filesize), 0x4000);
+            } else {
+                struct segment_command_64 *linkedit_segment_command = (struct segment_command_64  *)((char *)outData.mutableBytes + linkeditSegment.commandOffset);
+                linkedit_segment_command -> filesize += increase_size_all_without_padding + string_table_padding;
+                linkedit_segment_command -> vmsize = vm_addr_round((linkedit_segment_command -> filesize), 0x4000);
+            }
+        }
+        
+        // must first insert string
+        [outData replaceBytesInRange:NSMakeRange(origin_string_table_offset + origin_string_table_size , 0) withBytes:(const void *)string_table_append_data.bytes  length:increase_size_string_tab + string_table_padding];
+        [outData replaceBytesInRange:NSMakeRange(origin_symbol_table_offset + origin_symbol_table_num * NListSize , 0) withBytes:(const void *)symbol_table_append_data.bytes   length:increase_size_symtab];
     }
     
-    
-    
-    
-    // must first insert string
-    [outData replaceBytesInRange:NSMakeRange(origin_string_table_offset + origin_string_table_size , 0) withBytes:(const void *)string_table_append_data.bytes   length:increase_size_string_tab + string_table_padding];
-    
-    [outData replaceBytesInRange:NSMakeRange(origin_symbol_table_offset + origin_symbol_table_num * NListSize , 0) withBytes:(const void *)symbol_table_append_data.bytes   length:increase_size_symtab];
     
     NSError * err = nil;
     [outData writeToFile:outpath options:NSDataWritingWithoutOverwriting error:&err];
     
     if (!err) {
         chmod(outpath.UTF8String, 0755);
-    }else{
+    } else {
         fprintf(stderr,"Write file error : %s", [err localizedDescription].UTF8String);
         return;
     }
     
-    
-    fprintf(stderr,"=========== Finish ============\n");
-    
+    fprintf(stdout,"=========== Finish ============\n");
 }
